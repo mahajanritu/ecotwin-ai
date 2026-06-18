@@ -5,7 +5,10 @@ import Providers from '@/components/Providers'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ecotwin-iraovepwe-ritu-mahajan-s-projects.vercel.app'),
-  title: 'EcoTwin AI — Meet Your Future Climate Self',
+  title: {
+    default: 'EcoTwin AI',
+    template: '%s | EcoTwin AI',
+  },
   description:
     'AI-powered carbon footprint tracker with your personal Climate Digital Twin. See how today\'s choices shape tomorrow\'s planet.',
   keywords: 'carbon footprint, climate twin, AI sustainability, eco tracker, green living',
