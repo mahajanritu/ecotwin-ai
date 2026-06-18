@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Background -->
+  <rect width="32" height="32" rx="8" fill="#050A07"/>
+  <!-- Green gradient background -->
+  <rect width="32" height="32" rx="8" fill="url(#grad)"/>
+  <!-- Leaf icon -->
+  <path d="M16 6C16 6 8 10 8 18C8 22.4 11.6 26 16 26C20.4 26 24 22.4 24 18C24 10 16 6 16 6Z" fill="#4ADE80"/>
+  <path d="M16 6C16 6 8 10 8 18C8 22.4 11.6 26 16 26C16 26 16 16 16 6Z" fill="#22C55E"/>
+  <!-- Stem -->
+  <path d="M16 26L16 20M16 20C16 20 12 17 10 14" stroke="#16A34A" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="32" y2="32">
+      <stop offset="0%" stop-color="#0a0f0d"/>
+      <stop offset="100%" stop-color="#111714"/>
+    </linearGradient>
+  </defs>
+</svg>

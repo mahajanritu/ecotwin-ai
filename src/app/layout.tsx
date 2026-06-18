@@ -4,18 +4,21 @@ import { Toaster } from 'react-hot-toast'
 import Providers from '@/components/Providers'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ecotwin-ai.vercel.app'),
+  metadataBase: new URL('https://ecotwin-iraovepwe-ritu-mahajan-s-projects.vercel.app'),
   title: 'EcoTwin AI — Meet Your Future Climate Self',
   description:
     'AI-powered carbon footprint tracker with your personal Climate Digital Twin. See how today\'s choices shape tomorrow\'s planet.',
   keywords: 'carbon footprint, climate twin, AI sustainability, eco tracker, green living',
   authors: [{ name: 'EcoTwin AI' }],
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/apple-touch-icon.svg',
+  },
   openGraph: {
     title: 'EcoTwin AI — Meet Your Future Climate Self',
     description: 'AI-powered carbon footprint tracker with your personal Climate Digital Twin.',
     type: 'website',
-    url: 'https://ecotwin.ai',
-    images: [{ url: '/og-image.png' }],
+    url: 'https://ecotwin-iraovepwe-ritu-mahajan-s-projects.vercel.app',
   },
   twitter: {
     card: 'summary_large_image',
@@ -28,7 +31,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="dark">
       <head>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="alternate icon" href="/favicon.svg" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
