@@ -20,7 +20,7 @@ const LINKS = {
   Company: [
     { label: 'About', href: '#' },
     { label: 'Blog', href: '#' },
-    { label: 'GitHub', href: 'https://github.com/ecotwin-ai' },
+    { label: 'GitHub', href: 'https://github.com/mahajanritu/ecotwin-ai' },
     { label: 'Contact', href: '#' },
   ],
 }
