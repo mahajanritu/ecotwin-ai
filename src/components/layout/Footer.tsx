@@ -43,9 +43,8 @@ export default function Footer() {
             </p>
             <div className="flex gap-3">
               {[
-                { icon: Github, href: 'https://github.com/ecotwin-ai' },
-                { icon: Twitter, href: 'https://twitter.com/ecotwinai' },
-                { icon: Linkedin, href: '#' },
+                { icon: Github, href: 'https://github.com/mahajanritu/ecotwin-ai' },
+                { icon: Linkedin, href: 'https://www.linkedin.com/in/ritu-mahajan-6175a1393/' },
               ].map(({ icon: Icon, href }) => (
                 <a
                   key={href}
