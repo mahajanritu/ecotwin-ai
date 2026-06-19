@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { useInView } from 'framer-motion'
 
 interface Props {
   end: number
@@ -23,30 +22,56 @@ export default function StatsCounter({
   decimals = 0,
 }: Props) {
   const [count, setCount] = useState(0)
+  const [started, setStarted] = useState(false)
   const ref = useRef<HTMLSpanElement>(null)
-  const inView = useInView(ref, { once: true })
 
   useEffect(() => {
-    if (!inView) return
+    // Use IntersectionObserver directly — more reliable than framer-motion useInView
+    const el = ref.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !started) {
+          setStarted(true)
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [started])
+
+  useEffect(() => {
+    if (!started) return
+
     const startTime = Date.now()
     const endTime = startTime + duration
 
     const tick = () => {
       const now = Date.now()
       const progress = Math.min(1, (now - startTime) / (endTime - startTime))
-      const eased = 1 - Math.pow(1 - progress, 3) // ease-out cubic
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3)
       setCount(eased * end)
       if (progress < 1) requestAnimationFrame(tick)
+      else setCount(end)
     }
 
     requestAnimationFrame(tick)
-  }, [inView, end, duration])
+  }, [started, end, duration])
 
-  const display = decimals > 0 ? count.toFixed(decimals) : Math.round(count).toLocaleString()
+  const display =
+    decimals > 0
+      ? count.toFixed(decimals)
+      : format
+      ? Math.round(count).toLocaleString()
+      : Math.round(count).toLocaleString()
 
   return (
     <span ref={ref} className={className}>
-      {prefix}{format ? Math.round(count).toLocaleString() : display}{suffix}
+      {prefix}{display}{suffix}
     </span>
   )
 }

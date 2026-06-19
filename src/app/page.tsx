@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { ArrowRight, Leaf, Zap, TreePine, Wind, ChevronDown } from 'lucide-react'
 import Navbar from '@/components/layout/Navbar'
 import HeroEarth from '@/components/features/HeroEarth'
-import StatsCounter from '@/components/features/StatsCounter'
 import FeatureShowcase from '@/components/features/FeatureShowcase'
 import TwinPreview from '@/components/features/TwinPreview'
 import HeatmapSection from '@/components/features/HeatmapSection'
@@ -143,21 +142,18 @@ export default function HomePage() {
             rounded-2xl border border-eco-border bg-eco-card/50 backdrop-blur-sm"
         >
           {[
-            { icon: <Leaf size={14} />, value: 847000, label: 'Users tracking', suffix: '+', format: true },
-            { icon: <Zap size={14} />, value: 124, label: 'Tonnes CO₂ saved', suffix: 'K', format: false },
-            { icon: <TreePine size={14} />, value: 2.1, label: 'Virtual trees grown', suffix: 'M', format: false },
+            { icon: <Leaf size={14} />, value: 847000, label: 'Users tracking', display: '847,000+' },
+            { icon: <Zap size={14} />, value: 124, label: 'Tonnes CO₂ saved', display: '124K' },
+            { icon: <TreePine size={14} />, value: 2.1, label: 'Virtual trees grown', display: '2.1M' },
           ].map((stat, i) => (
             <div key={i} className="px-8 py-5 text-center">
               <div className="flex items-center justify-center gap-1.5 text-eco-green text-xs mb-1">
                 {stat.icon}
                 <span className="uppercase tracking-wider">{stat.label}</span>
               </div>
-              <StatsCounter
-                end={stat.value}
-                suffix={stat.suffix}
-                format={stat.format}
-                className="text-2xl font-bold text-white"
-              />
+              <span className="text-2xl font-bold text-white">
+                {stat.display}
+              </span>
             </div>
           ))}
         </motion.div>
