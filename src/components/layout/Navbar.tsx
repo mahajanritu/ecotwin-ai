@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Leaf, Menu, X, Zap } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import NotificationsDropdown from './NotificationsDropdown'
 import UserMenu from './UserMenu'
 
 const NAV_LINKS = [
@@ -74,8 +73,6 @@ export default function Navbar() {
 
           {/* Right actions */}
           <div className="hidden md:flex items-center gap-3">
-            <NotificationsDropdown />
-
             <UserMenu />
 
             <Link href="/calculator">

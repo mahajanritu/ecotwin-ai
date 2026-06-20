@@ -1,9 +1,9 @@
-import { NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import connectDB from '@/lib/mongodb'
 import User from '@/models/User'
 import CarbonProfile from '@/models/CarbonProfile'
+import { NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
 
@@ -19,13 +19,13 @@ export async function GET() {
 
     const user = await User.findOne({ email: session.user.email })
       .select('-password')
-      .lean() as Record<string, unknown> | null
+      .lean() as any
 
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
-    const profile = await CarbonProfile.findOne({ userId: user._id }).lean() as Record<string, unknown> | null
+    const profile = await CarbonProfile.findOne({ userId: user._id })
 
     return NextResponse.json({
       success: true,
@@ -45,6 +45,9 @@ export async function GET() {
     })
   } catch (err) {
     console.error('Profile fetch error:', err)
-    return NextResponse.json({ error: 'Failed to fetch profile' }, { status: 500 })
+    return NextResponse.json(
+      { error: 'Failed to fetch profile' },
+      { status: 500 }
+    )
   }
 }

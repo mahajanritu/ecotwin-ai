@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { calculateCarbonFootprint, type CalcInput } from '@/lib/carbon'
+import { calculateCarbonFootprint } from '@/lib/carbon'
+import type { CalcInput } from '@/lib/carbon'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import connectDB from '@/lib/mongodb'

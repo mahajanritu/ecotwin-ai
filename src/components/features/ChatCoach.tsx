@@ -14,7 +14,7 @@ interface Message {
 const INITIAL_MESSAGES: Message[] = [
   {
     role: 'ai',
-    text: "👋 Hi! I'm your EcoCoach, Powered by Groq AI AI. Ask me anything — carbon footprint, diet, transport, solar, shopping, or any sustainability topic!",
+    text: "👋 Hi! I'm your EcoCoach, powered by Google Gemini AI. Ask me anything — carbon footprint, diet, transport, solar, shopping, or any sustainability topic!",
   },
 ]
 
@@ -102,7 +102,7 @@ export default function ChatCoach() {
           <div className="text-[14px] font-semibold text-white">EcoCoach AI</div>
           <div className="text-[11px] text-eco-green flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 bg-eco-green rounded-full" />
-            Powered by Groq AI
+            Powered by Google Gemini
           </div>
         </div>
         <a
