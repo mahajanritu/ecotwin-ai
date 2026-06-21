@@ -3,9 +3,10 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
+import Link from 'next/link'
 import {
   Brain, ScanLine, BarChart3, Sliders, Map, Bot,
-  Leaf, Trophy, Users, Globe, BookOpen, TrendingDown
+  Leaf, Trophy, Users, Globe, BookOpen, TrendingDown, ArrowUpRight
 } from 'lucide-react'
 
 const FEATURES = [
@@ -16,6 +17,7 @@ const FEATURES = [
     color: '#4ADE80',
     glow: 'rgba(74,222,128,0.15)',
     tag: 'Core Feature',
+    href: '/twin',
   },
   {
     icon: ScanLine,
@@ -24,6 +26,7 @@ const FEATURES = [
     color: '#2DD4BF',
     glow: 'rgba(45,212,191,0.15)',
     tag: 'AI Powered',
+    href: '/community',
   },
   {
     icon: BarChart3,
@@ -32,6 +35,7 @@ const FEATURES = [
     color: '#A3E635',
     glow: 'rgba(163,230,53,0.15)',
     tag: 'Free Tool',
+    href: '/calculator',
   },
   {
     icon: Sliders,
@@ -40,6 +44,7 @@ const FEATURES = [
     color: '#60A5FA',
     glow: 'rgba(96,165,250,0.15)',
     tag: 'Interactive',
+    href: '/twin',
   },
   {
     icon: Map,
@@ -48,6 +53,7 @@ const FEATURES = [
     color: '#FCD34D',
     glow: 'rgba(252,211,77,0.15)',
     tag: 'Visual',
+    href: '/dashboard',
   },
   {
     icon: Bot,
@@ -56,6 +62,7 @@ const FEATURES = [
     color: '#A78BFA',
     glow: 'rgba(167,139,250,0.15)',
     tag: 'AI Coach',
+    href: '/coach',
   },
   {
     icon: Leaf,
@@ -64,6 +71,7 @@ const FEATURES = [
     color: '#4ADE80',
     glow: 'rgba(74,222,128,0.12)',
     tag: 'Gamified',
+    href: '/twin',
   },
   {
     icon: Trophy,
@@ -72,6 +80,7 @@ const FEATURES = [
     color: '#FCD34D',
     glow: 'rgba(252,211,77,0.12)',
     tag: 'Gamified',
+    href: '/twin',
   },
   {
     icon: Users,
@@ -80,6 +89,7 @@ const FEATURES = [
     color: '#F87171',
     glow: 'rgba(248,113,113,0.12)',
     tag: 'Social',
+    href: '/community',
   },
   {
     icon: Globe,
@@ -88,6 +98,7 @@ const FEATURES = [
     color: '#2DD4BF',
     glow: 'rgba(45,212,191,0.12)',
     tag: 'Social',
+    href: '/community',
   },
   {
     icon: BookOpen,
@@ -96,6 +107,7 @@ const FEATURES = [
     color: '#A3E635',
     glow: 'rgba(163,230,53,0.12)',
     tag: 'Education',
+    href: '/coach',
   },
   {
     icon: TrendingDown,
@@ -104,6 +116,7 @@ const FEATURES = [
     color: '#60A5FA',
     glow: 'rgba(96,165,250,0.12)',
     tag: 'Insights',
+    href: '/dashboard',
   },
 ]
 
@@ -113,46 +126,57 @@ function FeatureCard({ feature, index }: { feature: typeof FEATURES[0]; index: n
   const Icon = feature.icon
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
-      whileHover={{ y: -4, transition: { duration: 0.2 } }}
-      className="relative group p-6 rounded-2xl border border-eco-border bg-eco-card/50
-        hover:border-opacity-100 transition-all cursor-default overflow-hidden"
-      style={{
-        '--glow': feature.glow,
-      } as React.CSSProperties}
-    >
-      {/* Hover glow */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
-        style={{ background: `radial-gradient(ellipse at top left, ${feature.glow}, transparent 60%)` }}
-      />
-
-      {/* Tag */}
-      <div className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-semibold
-        uppercase tracking-wider mb-4 border"
+    <Link href={feature.href} className="block rounded-2xl focus-visible:outline focus-visible:outline-2
+      focus-visible:outline-eco-green focus-visible:outline-offset-2">
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0, y: 30 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
+        whileHover={{ y: -4, transition: { duration: 0.2 } }}
+        className="relative group p-6 rounded-2xl border border-eco-border bg-eco-card/50
+          hover:border-opacity-100 transition-all cursor-pointer overflow-hidden h-full"
         style={{
-          color: feature.color,
-          borderColor: `${feature.color}30`,
-          background: `${feature.color}0F`,
-        }}
+          '--glow': feature.glow,
+        } as React.CSSProperties}
       >
-        {feature.tag}
-      </div>
+        {/* Hover glow */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
+          style={{ background: `radial-gradient(ellipse at top left, ${feature.glow}, transparent 60%)` }}
+        />
 
-      {/* Icon */}
-      <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-transform
-        group-hover:scale-110"
-        style={{ background: `${feature.color}15`, boxShadow: `0 0 20px ${feature.color}20` }}
-      >
-        <Icon size={18} style={{ color: feature.color }} />
-      </div>
+        {/* Arrow indicator on hover */}
+        <ArrowUpRight
+          size={16}
+          aria-hidden="true"
+          className="absolute top-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+          style={{ color: feature.color }}
+        />
 
-      <h3 className="text-[15px] font-semibold text-white mb-2">{feature.title}</h3>
-      <p className="text-sm text-eco-muted-light leading-relaxed">{feature.desc}</p>
-    </motion.div>
+        {/* Tag */}
+        <div className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-semibold
+          uppercase tracking-wider mb-4 border"
+          style={{
+            color: feature.color,
+            borderColor: `${feature.color}30`,
+            background: `${feature.color}0F`,
+          }}
+        >
+          {feature.tag}
+        </div>
+
+        {/* Icon */}
+        <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-transform
+          group-hover:scale-110"
+          style={{ background: `${feature.color}15`, boxShadow: `0 0 20px ${feature.color}20` }}
+        >
+          <Icon size={18} style={{ color: feature.color }} aria-hidden="true" />
+        </div>
+
+        <h3 className="text-[15px] font-semibold text-white mb-2">{feature.title}</h3>
+        <p className="text-sm text-eco-muted-light leading-relaxed">{feature.desc}</p>
+      </motion.div>
+    </Link>
   )
 }
 
