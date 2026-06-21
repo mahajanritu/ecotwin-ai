@@ -25,7 +25,7 @@ module.exports = {
           coral: '#F87171',
           purple: '#A78BFA',
           text: '#E2F0E8',
-          muted: '#5A7A63',
+          muted: '#74957B',
           'muted-light': '#8FA897',
         },
       },

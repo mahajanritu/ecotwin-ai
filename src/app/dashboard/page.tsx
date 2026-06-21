@@ -319,8 +319,8 @@ export default function DashboardPage() {
                         </linearGradient>
                       </defs>
                       <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
-                      <XAxis dataKey="month" tick={{ fill: '#5A7A63', fontSize: 11 }} axisLine={false} tickLine={false} />
-                      <YAxis tick={{ fill: '#5A7A63', fontSize: 11 }} axisLine={false} tickLine={false} />
+                      <XAxis dataKey="month" tick={{ fill: '#74957B', fontSize: 11 }} axisLine={false} tickLine={false} />
+                      <YAxis tick={{ fill: '#74957B', fontSize: 11 }} axisLine={false} tickLine={false} />
                       <Tooltip
                         contentStyle={{ background: '#0C1410', border: '0.5px solid rgba(74,222,128,0.2)', borderRadius: 12 }}
                         labelStyle={{ color: '#E2F0E8', fontWeight: 600 }}

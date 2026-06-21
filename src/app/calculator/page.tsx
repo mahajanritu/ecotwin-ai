@@ -62,7 +62,7 @@ function OptionCard({ option, selected, onSelect }: {
       <div className="text-3xl mb-3">{option.icon}</div>
       <div className="font-semibold text-white text-[14px] mb-1">{option.label}</div>
       {option.desc && <div className="text-eco-muted-light text-[11px] mb-2">{option.desc}</div>}
-      <div className="text-[11px] font-medium" style={{ color: selected ? '#4ADE80' : '#5A7A63' }}>
+      <div className="text-[11px] font-medium" style={{ color: selected ? '#4ADE80' : '#74957B' }}>
         {option.co2}
       </div>
     </motion.div>

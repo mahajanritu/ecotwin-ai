@@ -15,88 +15,49 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Message is required' }, { status: 400 })
     }
 
-    const apiKey = process.env.GEMINI_API_KEY
+    const apiKey = process.env.GROQ_API_KEY
 
-    // ── DEBUG: log key status (remove in production) ──
-    console.log('[Coach] API key present:', !!apiKey)
-    console.log('[Coach] API key starts with AIza:', apiKey?.startsWith('AIza'))
-    console.log('[Coach] User message:', message)
-
-    // ── NO VALID KEY → clear error ──
-    if (!apiKey || !apiKey.startsWith('AIza')) {
+    if (!apiKey || !apiKey.startsWith('gsk_')) {
       return NextResponse.json({
-        reply: `⚠️ Gemini API key not configured. Please add a valid GEMINI_API_KEY (starting with "AIzaSy") to your .env.local file. Get a free key at: https://aistudio.google.com/app/apikey`,
+        reply: 'AI coach is not configured yet. Please add a GROQ_API_KEY to enable real-time responses.',
         source: 'no-key',
       })
     }
 
-    // ── CALL GEMINI ──
-    const body = {
-      contents: [
-        {
-          role: 'user',
-          parts: [{ text: SYSTEM_PROMPT }],
-        },
-        {
-          role: 'model',
-          parts: [{ text: 'Understood! I am EcoCoach. I will answer every question directly and specifically about sustainability.' }],
-        },
-        {
-          role: 'user',
-          parts: [{ text: message }],
-        },
-      ],
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 300,
-        topK: 40,
-        topP: 0.95,
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
       },
-    }
-
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      }
-    )
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'user', content: message },
+        ],
+        temperature: 0.7,
+        max_tokens: 350,
+      }),
+    })
 
     const data = await res.json()
 
-    // ── LOG FULL RESPONSE FOR DEBUGGING ──
-    console.log('[Coach] Gemini status:', res.status)
-    console.log('[Coach] Gemini response:', JSON.stringify(data).substring(0, 500))
-
-    // ── API ERROR ──
     if (!res.ok || data.error) {
-      const code = data.error?.code ?? res.status
-      const msg = data.error?.message ?? 'Unknown error'
-      console.error('[Coach] Gemini API error:', code, msg)
-
-      let userMsg = `Gemini error (${code}): ${msg}`
-      if (code === 400) userMsg = '❌ Invalid API key. Get a free key at aistudio.google.com/app/apikey — it should start with "AIzaSy".'
-      if (code === 403) userMsg = '❌ API key rejected. Make sure "Generative Language API" is enabled in your Google Cloud project.'
-      if (code === 429) userMsg = '⏳ Too many requests. Wait 30 seconds and try again.'
-
-      return NextResponse.json({ reply: userMsg, source: 'api-error' })
+      const msg = data.error?.message ?? `HTTP ${res.status}`
+      return NextResponse.json({ reply: `AI service error: ${msg}`, source: 'api-error' })
     }
 
-    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim()
+    const reply = data.choices?.[0]?.message?.content?.trim()
 
     if (!reply) {
-      console.warn('[Coach] Empty reply from Gemini')
       return NextResponse.json({ reply: 'Sorry, I got an empty response. Please try again.', source: 'empty' })
     }
 
-    console.log('[Coach] Success! Reply length:', reply.length)
-    return NextResponse.json({ reply, source: 'gemini' })
-
+    return NextResponse.json({ reply, source: 'groq' })
   } catch (err) {
-    console.error('[Coach] Unexpected error:', err)
     return NextResponse.json(
-      { reply: `Network error: ${err instanceof Error ? err.message : 'Unknown'}. Check your internet connection.` },
+      { reply: `Network error: ${err instanceof Error ? err.message : 'Unknown'}. Please try again.` },
       { status: 500 }
     )
   }

@@ -24,7 +24,7 @@ export default function ResultsPanel({ result, onViewDashboard }: { result: Calc
       <div className="text-center mb-8">
         <div className="text-sm text-eco-muted-light mb-2 uppercase tracking-widest">Your result is ready</div>
         <h1 className="text-3xl font-black text-white mb-1">Your Carbon Footprint</h1>
-        <p className="text-eco-muted-light text-[14px]">AI analysis complete — here's where you stand.</p>
+        <p className="text-eco-muted-light text-[14px]">AI analysis complete — here&apos;s where you stand.</p>
       </div>
 
       {/* Main score */}

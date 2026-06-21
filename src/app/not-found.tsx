@@ -17,7 +17,7 @@ export default function NotFound() {
         </div>
         <h1 className="text-6xl font-black text-white mb-2">404</h1>
         <p className="text-eco-muted-light text-lg mb-8 max-w-sm">
-          This page seems to have a bigger carbon footprint than expected — it doesn't exist.
+          This page seems to have a bigger carbon footprint than expected — it doesn&apos;t exist.
         </p>
         <Link href="/">
           <button className="flex items-center gap-2 px-6 py-3 bg-eco-green text-eco-dark font-semibold rounded-full">

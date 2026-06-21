@@ -215,7 +215,7 @@ export default function SignUpPage() {
             </form>
 
             <p className="text-center text-[11px] text-eco-muted mt-5">
-              By signing up, you agree to EcoTwin AI's Terms & Privacy Policy.
+              By signing up, you agree to EcoTwin AI&apos;s Terms & Privacy Policy.
             </p>
 
             <p className="text-center text-[13px] text-eco-muted-light mt-4">

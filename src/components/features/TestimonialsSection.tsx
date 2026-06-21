@@ -92,8 +92,7 @@ export default function TestimonialsSection() {
                   <Star key={j} size={12} fill={t.color} style={{ color: t.color }} />
                 ))}
               </div>
-              <p className="text-[14px] text-eco-muted-light leading-relaxed flex-1">"{t.text}"</p>
-              <div className="flex items-center gap-3 pt-2 border-t border-eco-border">
+                <p className="text-[14px] text-eco-muted-light leading-relaxed flex-1">&quot;{t.text}&quot;</p>              <div className="flex items-center gap-3 pt-2 border-t border-eco-border">
                 <div className="w-9 h-9 rounded-full flex items-center justify-center text-[12px] font-bold"
                   style={{ background: `${t.color}18`, color: t.color, border: `1px solid ${t.color}30` }}>
                   {t.avatar}
