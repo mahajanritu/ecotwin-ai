@@ -147,9 +147,9 @@ Use realistic Indian values. For electricity: 200-400 kWh, ₹1500-3500, 0.82 kg
         amount: 2840,
         co2Impact: 142,
         energyUsed: 340,
-        summary: 'Electricity bill — demo mode (add GEMINI_API_KEY or GROQ_API_KEY for real analysis)',
+        summary: 'Electricity bill — demo mode (no AI provider configured for this request)',
         insights: [
-          'Add a valid GEMINI_API_KEY to .env.local for real image scanning.',
+          'Add a valid GROQ_API_KEY to .env.local to enable real AI-powered receipt analysis.',
           '340 kWh generates ~142 kg CO₂ on the Indian grid.',
         ],
       },
