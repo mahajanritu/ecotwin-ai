@@ -2,7 +2,9 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Users, Clock } from 'lucide-react'
+import { useSession } from 'next-auth/react'
+import { Users, Clock, Loader2 } from 'lucide-react'
+import toast from 'react-hot-toast'
 
 const CHALLENGES = [
   { id: 1, name: 'No Car Week', desc: 'Use only public transport or walk for an entire week', icon: '🚲', participants: 2841, time: '4 days left', progress: 60, badge: 'Active', badgeColor: '#4ADE80', joined: true },
@@ -12,14 +14,40 @@ const CHALLENGES = [
 ]
 
 export default function CommunityChallenges() {
+  const { data: session } = useSession()
   const [joined, setJoined] = useState<Set<number>>(new Set([1]))
+  const [loadingId, setLoadingId] = useState<number | null>(null)
 
-  const toggle = (id: number) => {
+  const toggle = async (id: number) => {
+    if (!session) {
+      toast.error('Sign in to join challenges and track your progress')
+      return
+    }
+
+    const willJoin = !joined.has(id)
+    setLoadingId(id)
+
+    try {
+      // Best-effort persist — challenge data here is demo content for the hackathon,
+      // so we don't block the UI on this call, just attempt to sync.
+      await fetch('/api/community/challenges', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ challengeId: String(id) }),
+      })
+    } catch {
+      // Non-fatal — local state still updates so the UI stays responsive
+    } finally {
+      setLoadingId(null)
+    }
+
     setJoined(prev => {
       const next = new Set(prev)
       next.has(id) ? next.delete(id) : next.add(id)
       return next
     })
+
+    if (willJoin) toast.success('Joined! Keep up the streak 🌱')
   }
 
   return (
@@ -35,7 +63,7 @@ export default function CommunityChallenges() {
             className="p-5 rounded-2xl border border-eco-border bg-eco-card/60"
           >
             <div className="flex items-start justify-between mb-3">
-              <div className="text-2xl">{c.icon}</div>
+              <div className="text-2xl" aria-hidden="true">{c.icon}</div>
               <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full"
                 style={{ color: c.badgeColor, background: `${c.badgeColor}15`, border: `1px solid ${c.badgeColor}30` }}>
                 {c.badge}
@@ -44,8 +72,8 @@ export default function CommunityChallenges() {
             <h3 className="font-semibold text-white text-[15px] mb-1">{c.name}</h3>
             <p className="text-[12px] text-eco-muted-light leading-relaxed mb-3">{c.desc}</p>
             <div className="flex items-center justify-between text-[11px] text-eco-muted-light mb-2.5">
-              <span className="flex items-center gap-1"><Users size={11} /> {c.participants.toLocaleString()} joined</span>
-              <span className="flex items-center gap-1"><Clock size={11} /> {c.time}</span>
+              <span className="flex items-center gap-1"><Users size={11} aria-hidden="true" /> {c.participants.toLocaleString()} joined</span>
+              <span className="flex items-center gap-1"><Clock size={11} aria-hidden="true" /> {c.time}</span>
             </div>
             <div className="h-1.5 bg-white/5 rounded-full overflow-hidden mb-3">
               <motion.div
@@ -57,13 +85,18 @@ export default function CommunityChallenges() {
               />
             </div>
             <button
+              type="button"
               onClick={() => toggle(c.id)}
-              className={`w-full py-2 rounded-xl text-[12px] font-semibold transition-all border ${
+              disabled={loadingId === c.id}
+              className={`w-full py-2 rounded-xl text-[12px] font-semibold transition-all border
+                flex items-center justify-center gap-1.5 disabled:opacity-60
+                focus-visible:outline focus-visible:outline-2 focus-visible:outline-eco-green ${
                 isJoined
                   ? 'bg-eco-green/10 border-eco-green/30 text-eco-green'
                   : 'border-eco-green/20 text-eco-green hover:bg-eco-green/10'
               }`}
             >
+              {loadingId === c.id && <Loader2 size={12} className="animate-spin" aria-hidden="true" />}
               {isJoined ? 'Joined ✓' : 'Join Challenge'}
             </button>
           </motion.div>
