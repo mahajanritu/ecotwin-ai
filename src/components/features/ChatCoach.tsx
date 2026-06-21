@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Send, Bot, AlertCircle, ExternalLink } from 'lucide-react'
+import { Send, Bot, AlertCircle } from 'lucide-react'
 
 interface Message {
   role: 'ai' | 'user'
@@ -118,15 +118,11 @@ export default function ChatCoach({ initialPrompt, onPromptConsumed }: ChatCoach
             Powered by Groq AI
           </div>
         </div>
-        <a
-          href="https://console.groq.com/keys"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[10px] text-eco-muted-light hover:text-eco-green transition-colors
-            flex items-center gap-1 px-2 py-1 rounded-lg border border-eco-border hover:border-eco-green/30"
-        >
-          Get API key <ExternalLink size={9} />
-        </a>
+        <div className="flex items-center gap-1.5 text-[10px] text-eco-muted-light
+          px-2.5 py-1 rounded-full border border-eco-green/20 bg-eco-green/5">
+          <span className="w-1.5 h-1.5 rounded-full bg-eco-green" aria-hidden="true" />
+          Online
+        </div>
       </div>
 
       {/* Messages */}
