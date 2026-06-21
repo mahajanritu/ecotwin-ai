@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { calculateCarbonFootprint, simulateLifestyleChange, type CalcInput } from '@/lib/carbon'
-import { generateClimateTwinNarrative } from '@/lib/gemini'
+import { generateClimateTwinNarrative } from '@/lib/groq'
 
 // POST /api/twin/generate
 // Body: { input: CalcInput }
