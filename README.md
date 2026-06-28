@@ -18,7 +18,7 @@
 
 <br/>
 
-**[🚀 Live Demo](https://ecotwin-ai.vercel.app)** · **[📹 Demo Video](#)** · **[📊 Presentation](#)**
+**[🚀 Live Demo](https://ecotwin-ai-brown.vercel.app/)** · **[📹 Demo Video](#)** · **[📊 Presentation](#)**
 
 <br/>
 
@@ -351,6 +351,6 @@ Copyright (c) 2025 EcoTwin AI
 
 Made with 🌱 for a greener tomorrow
 
-**[🚀 Live Demo](https://ecotwin-ai.vercel.app)** · **[🐛 Report Bug](https://github.com/yourusername/ecotwin-ai/issues)** · **[💡 Request Feature](https://github.com/yourusername/ecotwin-ai/issues)**
+**[🚀 Live Demo](https://ecotwin-ai-brown.vercel.app/)** · **[🐛 Report Bug](https://github.com/yourusername/ecotwin-ai/issues)** · **[💡 Request Feature](https://github.com/yourusername/ecotwin-ai/issues)**
 
 </div>
